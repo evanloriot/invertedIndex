@@ -8,7 +8,7 @@
 #include "invertedIndex.h"
 
 //checks whether or not character is alphanumeric
-int isAlphaNumeric(char c){
+int isAlphaNumeric(char c){  
     if((c >= 48 && c <= 57) || (c >= 65 && c <= 90) || (c >= 97 && c <= 122)){
         return 1;
     }
@@ -129,6 +129,8 @@ void processFile(char* path, char* name){
                     strncpy(carry, &buffer[i], size);
                     carried = 1;
                     carrySize = size;
+		   
+		  
                     break;
                 }
                 //if there is a carried word, concatenate it to the front of the current word
@@ -150,15 +152,15 @@ void processFile(char* path, char* name){
                     text[size] = '\0';
                 }
                 //convert word to lower
-                int i;
-                for(i = 0; text[i]; i++){
-                    text[i] = tolower(text[i]);
+                int x; 
+                for(x = 0; text[x]; x++){
+                    text[x] = tolower(text[x]);
                 }
                 //process word
                 addWord(text, name);
                 free(text);
                 //move to next non alphanumeric character
-                i = j - 1;
+                i = j-1; 
             }
         }
     }
@@ -335,6 +337,17 @@ int main(int argc, char** argv){
 
     //write to file
     int fileD = open(argv[1], O_WRONLY | O_CREAT, 0600);
+    if(access(argv[1], F_OK) != -1) {
+	printf("File with same name as index argument exists. Would you like to overwrite it? (y/n)\n");
+	char line[1024];
+	char *str = fgets(line, 1024, stdin);
+	while(!(strlen(str) == 2 && (str[0] == 'y' || str[0] == 'Y' || str[0] == 'n' || str[0] == 'N'))) {
+		printf("Please enter y/n\n");
+		str = fgets(line, 1024, stdin);
+	}
+	if(strlen(str) == 2 && (str[0] == 'n' || str[0] == 'N'))
+		exit(0);
+    }
     if(fileD > 0){
         write(fileD, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n", 39);
         write(fileD, "<fileIndex>\n", 12);
