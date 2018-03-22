@@ -347,8 +347,6 @@ int main(int argc, char** argv){
 	    }
 	    if(strlen(str) == 2 && (str[0] == 'n' || str[0] == 'N'))
 		    exit(0);
-	    FILE * file = fopen(argv[1], "w");
-	    fclose(file);
     }
     int fileD = open(argv[1], O_WRONLY | O_CREAT | O_TRUNC, 0600);
     if(fileD > 0){
