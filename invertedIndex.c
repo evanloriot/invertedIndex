@@ -120,7 +120,7 @@ void processFile(char* path, char* name){
                         break;
                     }
                 }
-                //if word spands to end of buffer, add the word to the carried array so that it can be concatenated to the front of the next buffer
+                //if word spans to end of buffer, add the word to the carried array so that it can be concatenated to the front of the next buffer
                 if(j == bytes){
                     if(carry != NULL){
                         free(carry);
@@ -129,8 +129,6 @@ void processFile(char* path, char* name){
                     strncpy(carry, &buffer[i], size);
                     carried = 1;
                     carrySize = size;
-		   
-		  
                     break;
                 }
                 //if there is a carried word, concatenate it to the front of the current word
@@ -155,6 +153,9 @@ void processFile(char* path, char* name){
                 int x; 
                 for(x = 0; text[x]; x++){
                     text[x] = tolower(text[x]);
+                }
+                for(x = 0; name[x]; x++){
+                    name[x] = tolower(name[x]);
                 }
                 //process word
                 addWord(text, name);
@@ -336,7 +337,6 @@ int main(int argc, char** argv){
     }
 
     //write to file
-    int fileD = open(argv[1], O_WRONLY | O_CREAT, 0600);
     if(access(argv[1], F_OK) != -1) {
 	printf("File with same name as index argument exists. Would you like to overwrite it? (y/n)\n");
 	char line[1024];
@@ -348,6 +348,7 @@ int main(int argc, char** argv){
 	if(strlen(str) == 2 && (str[0] == 'n' || str[0] == 'N'))
 		exit(0);
     }
+    int fileD = open(argv[1], O_WRONLY | O_CREAT | O_TRUNC, 0600);
     if(fileD > 0){
         write(fileD, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n", 39);
         write(fileD, "<fileIndex>\n", 12);
