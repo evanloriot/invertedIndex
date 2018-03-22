@@ -8,7 +8,7 @@
 #include "invertedIndex.h"
 
 //checks whether or not character is alphanumeric
-int isAlphaNumeric(char c){  
+int isAlphaNumeric(char c){
     if((c >= 48 && c <= 57) || (c >= 65 && c <= 90) || (c >= 97 && c <= 122)){
         return 1;
     }
@@ -150,7 +150,7 @@ void processFile(char* path, char* name){
                     text[size] = '\0';
                 }
                 //convert word to lower
-                int x; 
+                int x;
                 for(x = 0; text[x]; x++){
                     text[x] = tolower(text[x]);
                 }
@@ -161,7 +161,7 @@ void processFile(char* path, char* name){
                 addWord(text, name);
                 free(text);
                 //move to next non alphanumeric character
-                i = j-1; 
+                i = j-1;
             }
         }
     }
@@ -210,7 +210,9 @@ void processDirectory(char* dir){
         }
         free(path);
     }
-    closedir(directory);
+    if(directory != NULL){
+        closedir(directory);
+    }
 }
 
 //sort words in linked list (selection sort)
@@ -326,7 +328,9 @@ int main(int argc, char** argv){
         }
     }
 
-    closedir(directory);
+    if(directory != NULL){
+        closedir(directory);
+    }
 
     //sort the words and for each word sort the files
     sortWords();
