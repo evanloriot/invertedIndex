@@ -338,17 +338,17 @@ int main(int argc, char** argv){
 
     //write to file
     if(access(argv[1], F_OK) != -1) {
-	printf("File with same name as index argument exists. Would you like to overwrite it? (y/n)\n");
-	char line[1024];
-	char *str = fgets(line, 1024, stdin);
-	while(!(strlen(str) == 2 && (str[0] == 'y' || str[0] == 'Y' || str[0] == 'n' || str[0] == 'N'))) {
-		printf("Please enter y/n\n");
-		str = fgets(line, 1024, stdin);
-	}
-	if(strlen(str) == 2 && (str[0] == 'n' || str[0] == 'N'))
-		exit(0);
-	FILE * file = fopen(argv[1], "w");
-	fclose(file);
+	    printf("File with same name as index argument exists. Would you like to overwrite it? (y/n)\n");
+	    char line[1024];
+	    char *str = fgets(line, 1024, stdin);
+	    while(!(strlen(str) == 2 && (str[0] == 'y' || str[0] == 'Y' || str[0] == 'n' || str[0] == 'N'))) {
+		    printf("Please enter y/n\n");
+		    str = fgets(line, 1024, stdin);
+	    }
+	    if(strlen(str) == 2 && (str[0] == 'n' || str[0] == 'N'))
+		    exit(0);
+	    FILE * file = fopen(argv[1], "w");
+	    fclose(file);
     }
     int fileD = open(argv[1], O_WRONLY | O_CREAT | O_TRUNC, 0600);
     if(fileD > 0){
