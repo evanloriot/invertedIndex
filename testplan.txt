@@ -1,0 +1,24 @@
+To test the functionality of our indexer, we created a directory called
+Directory0. This directory tests both our indexers ability to tokenize/sort words and its ability to recognize files with the same name in nested directories.
+	
+				[Directory0]
+				     |
+				     V
+		[Directory1]       a.txt     file1.txt
+		     |
+		     V
+[Directory2]    A.txt   file1.txt
+     |
+     V
+ file1.txt
+
+FILE CONTENTS:
+
+a.txt: "This an$example12 mail@rutgers"
+file.txt (D0): "Good GOOD good gOOd gooD"
+A.txt: "Hello!!!I**AM(a^text()()()file!"
+file1.txt (D1): "alpha ALPHA Alpha beta BETA beTA gamma GAMMA gamMa"
+file1.txt (D2): "This#is a test123that &everything% 3tokenizes*correctly1&"
+
+These files test the program's response to the same word with various upper case and lower case letters, as well as different non alphanumerical characters in various locations. Additionally, the directory as a whole tests the program's ability to treat files with the same name as the same, regardless of case or location within the 
+directory.
