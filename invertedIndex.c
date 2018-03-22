@@ -29,8 +29,8 @@ int isAlpha(char c){
 
 //adds word to linked list
 void addWord(char* wordString, char* fileName){
-    int len = strlen(wordString);
-    int lenFileName = strlen(fileName);
+    int len = strlen(wordString) + 1;
+    int lenFileName = strlen(fileName) + 1;
 
     //if no words have been made so far, initialize linked list
     if(head == NULL){

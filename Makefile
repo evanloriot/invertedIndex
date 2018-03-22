@@ -1,7 +1,7 @@
 PROGRAMS = invertedIndex 
 
 CC = gcc
-CFLAGS = -Wall -lm
+CFLAGS = -Wall -lm -g
 
 %: %.c %.h
 	$(CC) $(CFLAGS) -o $@ $<
