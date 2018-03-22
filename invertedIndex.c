@@ -38,8 +38,8 @@ void addWord(char* wordString, char* fileName){
         head->text = (char*) malloc(sizeof(char) * len);
         head->files = (file*) malloc(sizeof(file));
         head->files->fileName = (char*) malloc(sizeof(char) * lenFileName);
-        strncpy(head->text, wordString, len);
-        strncpy(head->files->fileName, fileName, lenFileName);
+        strcpy(head->text, wordString);
+        strcpy(head->files->fileName, fileName);
         head->files->count = 1;
         head->files->next = NULL;
         head->next = NULL;
@@ -61,7 +61,7 @@ void addWord(char* wordString, char* fileName){
                     if(files->next == NULL){
                         files->next = (file*) malloc(sizeof(file));
                         files->next->fileName = (char*) malloc(sizeof(char) * lenFileName);
-                        strncpy(files->next->fileName, fileName, lenFileName);
+                        strcpy(files->next->fileName, fileName);
                         files->next->count = 1;
                         files->next->next = NULL;
                         return;
@@ -73,11 +73,11 @@ void addWord(char* wordString, char* fileName){
             if(temp->next == NULL){
                 temp->next = (word*) malloc(sizeof(word));
                 temp->next->text = (char*) malloc(sizeof(char) * len);
-                strncpy(temp->next->text, wordString, len);
+                strcpy(temp->next->text, wordString);
                 temp->next->next = NULL;
                 temp->next->files = (file*) malloc(sizeof(file));
                 temp->next->files->fileName = (char*) malloc(sizeof(char) * lenFileName);
-                strncpy(temp->next->files->fileName, fileName, lenFileName);
+                strcpy(temp->next->files->fileName, fileName);
                 temp->next->files->count = 1;
                 temp->next->files->next = NULL;
                 return;
