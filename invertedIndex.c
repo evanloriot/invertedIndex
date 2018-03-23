@@ -153,6 +153,7 @@ void processFile(char* path, char* name){
                     strncpy(carry, &buffer[i], size);
                     carried = 1;
                     carrySize = size;
+                    i = j-1;
                     break;
                 }
                 //if there is a carried word, concatenate it to the front of the current word
@@ -186,6 +187,17 @@ void processFile(char* path, char* name){
                 free(text);
                 //move to next non alphanumeric character
                 i = j-1;
+            }
+            else if(carried == 1 && i == 0){
+                char * text = (char*) malloc(carrySize + 1);
+                strncpy(text, carry, carrySize);
+                text[carrySize] = '\0';
+                addWord(text, name);
+                carried = 0;
+                carrySize = 0;
+                free(carry);
+                carry = NULL;
+                free(text);
             }
         }
     }
