@@ -30,33 +30,24 @@ int isAlpha(char c){
 //explicit comparison to make . heavier than ascii equivalent
 //if in future not necessary, change all compare to strcmp
 int compare(char * s, char * t){
-    int i;
-    for(i = 0; i < strlen(s) && i < strlen(t); i++){
-        if(s[i] == '.'){
-            if(s[i] != t[i]){
-                return 1;
-            }
-            else{
-                continue;
-            }
+    int asciiRewrite[256];
+    for(int i = 0; i < 256; i++){
+        asciiRewrite[i] = i;
+    }
+    int increase = 123;
+    for(int i = 48; i <= 57; i++){
+        asciiRewrite[i] = increase;
+        increase++;
+    }
+    asciiRewrite[(int)'.'] = increase;
+    for(int i = 0; ; i++){
+        if(asciiRewrite[(int)s[i]] != asciiRewrite[(int)t[i]]){
+            return asciiRewrite[(int)s[i]] < asciiRewrite[(int)t[i]] ? -1 : 1;
         }
-        else if(t[i] == '.'){
-            return -1;
-        }
-        if(s[i] < t[i]){
-            return -1;
-        }
-        else if(s[i] > t[i]){
-            return 1;
+        if(s[i] == '\0'){
+            return 0;
         }
     }
-    if(i < strlen(t)){
-        return -1;
-    }
-    if(i < strlen(s)){
-        return 1;
-    }
-    return 0;
 }
 
 //adds word to linked list
