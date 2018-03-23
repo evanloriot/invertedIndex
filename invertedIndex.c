@@ -27,6 +27,38 @@ int isAlpha(char c){
     }
 }
 
+//explicit comparison to make . heavier than ascii equivalent
+//if in future not necessary, change all compare to strcmp
+int compare(char * s, char * t){
+    int i;
+    for(i = 0; i < strlen(s) && i < strlen(t); i++){
+        if(s[i] == '.'){
+            if(s[i] != t[i]){
+                return 1;
+            }
+            else{
+                continue;
+            }
+        }
+        else if(t[i] == '.'){
+            return -1;
+        }
+        if(s[i] < t[i]){
+            return -1;
+        }
+        else if(s[i] > t[i]){
+            return 1;
+        }
+    }
+    if(i < strlen(t)){
+        return -1;
+    }
+    if(i < strlen(s)){
+        return 1;
+    }
+    return 0;
+}
+
 //adds word to linked list
 void addWord(char* wordString, char* fileName){
     int len = strlen(wordString) + 1;
@@ -49,11 +81,11 @@ void addWord(char* wordString, char* fileName){
         word * temp = head;
         while(temp != NULL){
             //if an instance of the word exists in the list, find an instance of the file that it was currently found in
-            if(strcmp(wordString, temp->text) == 0){
+            if(compare(wordString, temp->text) == 0){
                 file * files = temp->files;
                 while(files != NULL){
                     //increase count at file for word and return
-                    if(strcmp(files->fileName, fileName) == 0){
+                    if(compare(files->fileName, fileName) == 0){
                         files->count++;
                         return;
                     }
@@ -204,7 +236,7 @@ void processDirectory(char* dir){
         }
         //if directory recurse except for . and ..
         else if(de->d_type == DT_DIR){
-            if(strcmp(de->d_name, ".") != 0 && strcmp(de->d_name, "..") != 0){
+            if(compare(de->d_name, ".") != 0 && compare(de->d_name, "..") != 0){
                 processDirectory(path);
             }
         }
@@ -226,7 +258,7 @@ void sortWords(){
         word * small = ptr;
         word * prevSmall = NULL;
         while(temp != NULL){
-            if(strcmp(temp->text, small->text) < 0){
+            if(compare(temp->text, small->text) < 0){
                 prevSmall = prev;
                 small = temp;
             }
@@ -320,7 +352,7 @@ int main(int argc, char** argv){
                 processFile(path, de->d_name);
             }
             else if(de->d_type == DT_DIR){
-                if(strcmp(de->d_name, ".") != 0 && strcmp(de->d_name, "..") != 0){
+                if(compare(de->d_name, ".") != 0 && compare(de->d_name, "..") != 0){
                     processDirectory(path);
                 }
             }
