@@ -31,16 +31,17 @@ int isAlpha(char c){
 //if in future not necessary, change all compare to strcmp
 int compare(char * s, char * t){
     int asciiRewrite[256];
-    for(int i = 0; i < 256; i++){
+    int i;
+    for(i = 0; i < 256; i++){
         asciiRewrite[i] = i;
     }
     int increase = 123;
-    for(int i = 48; i <= 57; i++){
+    for(i = 48; i <= 57; i++){
         asciiRewrite[i] = increase;
         increase++;
     }
     asciiRewrite[(int)'.'] = increase;
-    for(int i = 0; ; i++){
+    for(i = 0; ; i++){
         if(asciiRewrite[(int)s[i]] != asciiRewrite[(int)t[i]]){
             return asciiRewrite[(int)s[i]] < asciiRewrite[(int)t[i]] ? -1 : 1;
         }
